@@ -6,7 +6,8 @@ use windows::Win32::Graphics::Direct3D11::{
     ID3D11DeviceContext,
 };
 use windows::Win32::Graphics::Dxgi::{
-    CreateDXGIFactory1, IDXGIAdapter1, IDXGIFactory1
+    CreateDXGIFactory1, IDXGIAdapter1, IDXGIFactory1, IDXGIOutput1, IDXGIOutputDuplication,
+    DXGI_OUTDUPL_FRAME_INFO
 };
 use libloading::{Library, Symbol};
 
@@ -84,12 +85,10 @@ fn main() -> Result<()> {
                         break;
                     }
                 }
-            } else {
-                break; 
-            }
+            } else { break; }
         }
 
-        let adapter = selected_adapter.expect("❌ CRITICAL: Could not find an NVIDIA GPU on this system!");
+        let adapter = selected_adapter.expect("❌ CRITICAL: Could not find an NVIDIA GPU!");
 
         // 2. Build Direct3D11 Engine
         let mut device: Option<ID3D11Device> = None;
@@ -103,7 +102,20 @@ fn main() -> Result<()> {
 
         let device = device.expect("Failed to bind Direct3D11 render context");
 
-        // 3. Load Driver Binary Interfaces
+        // 3. New Screen Capture Subsystem (DXGI Desktop Duplication)
+        println!("🎬 Attaching to primary desktop output monitor display...");
+        
+        // Grab the primary output screen hooked up to our card (Index 0 is your main monitor)
+        let output = adapter.EnumOutputs(0)?;
+        
+        // Typecast the output interface to an IDXGIOutput1 wrapper required for desktop duplication
+        let output1: IDXGIOutput1 = output.cast()?;
+        
+        // Activate the Windows desktop duplication stream on our Direct3D device context
+        let desk_dupl: IDXGIOutputDuplication = output1.DuplicateOutput(&device)?;
+        println!("✅ Screen Capture Engine initialized successfully!");
+
+        // 4. Load NVIDIA NVENC Driver Binary Interfaces
         let nvenc_lib = Library::new("nvEncodeAPI64.dll").expect("NVIDIA Graphics Driver not found");
         
         let major_version: u32 = 12;
@@ -115,50 +127,45 @@ fn main() -> Result<()> {
         
         function_list.version = api_version | (2 << 16) | (0x7 << 28); 
         
-        if create_instance(&mut function_list) == 0 {
-            println!("✅ NVENC Function Dispatch Table generated successfully.");
-        } else {
+        if create_instance(&mut function_list) != 0 {
             println!("❌ Function List Handshake rejected."); 
             return Ok(());
         }
         
-        // 4. Request Silicon Session Allocation
+        // 5. Request Silicon Session Allocation
         if let (Some(open_session_ex), Some(destroy_encoder)) = 
             (function_list.nvEncOpenEncodeSessionEx, function_list.nvEncDestroyEncoder) 
         {
             let mut session_handle: *mut std::ffi::c_void = std::ptr::null_mut();
+            let mut session_params: NV_ENC_OPEN_ENCODE_SESSION_EX_PARAMS = std::mem::zeroed();
             
-            let mut success = false;
-            let mut final_status = 0;
-            
-            println!("🔄 Brute-forcing Device Type Enum mapping...");
-            
-            // Rapidly test all possible Device Types to find the one that fits our DX11 pointer
-            for dt in 0..=10 {
-                let mut session_params: NV_ENC_OPEN_ENCODE_SESSION_EX_PARAMS = std::mem::zeroed();
-                
-                session_params.version = api_version | (1 << 16) | (0x7 << 28); 
-                session_params.device_type = dt; 
-                session_params.device = device.as_raw() as *mut std::ffi::c_void; 
-                session_params.api_version = api_version;
+            session_params.version = api_version | (1 << 16) | (0x7 << 28); 
+            session_params.device_type = 0; // Verified working Direct3D11 Index
+            session_params.device = device.as_raw() as *mut std::ffi::c_void; 
+            session_params.api_version = api_version;
 
-                let status = open_session_ex(&mut session_params, &mut session_handle);
-                
-                if status == 0 {
-                    println!("✅ NVENC Session Verified and Active! (RTX 5070 Silicon Locked)");
-                    println!("🎯 Direct3D11 Device Type officially mapped to Enum Index: {}", dt);
-                    println!("🎬 Allocating input surface memory descriptions... Frame pipeline ready!");
-                    
-                    destroy_encoder(session_handle);
-                    println!("🛑 Session safely recycled. Ready for the streaming loop.");
-                    success = true;
-                    break;
-                }
-                final_status = status;
-            }
+            let status = open_session_ex(&mut session_params, &mut session_handle);
             
-            if !success {
-                println!("❌ Handshake rejected across all device types. Last Error Code: {}", final_status);
+            if status == 0 {
+                println!("✅ NVENC Session Verified and Active! (RTX 5070 Silicon Locked)");
+                
+                // --- TEST FRAME GRAB ---
+                println!("📡 Testing active video capture frame grab loop...");
+                let mut frame_info: DXGI_OUTDUPL_FRAME_INFO = std::mem::zeroed();
+                let mut resource = None;
+                
+                // Wait for up to 250 milliseconds for a screen frame change to occur
+                if desk_dupl.AcquireNextFrame(250, &mut frame_info, &mut resource).is_ok() {
+                    println!("📸 Successfully pulled a live screen texture frame out of Windows display engine!");
+                    let _ = desk_dupl.ReleaseFrame(); // Safely return the frame back to Windows
+                } else {
+                    println!("⚠️ Frame grab timeout (no screen updates occurred during test initialization).");
+                }
+                
+                destroy_encoder(session_handle);
+                println!("🛑 Session safely recycled. Pipelines clear.");
+            } else {
+                println!("❌ Handshake rejected. NVENC Error Code: {}", status);
             }
         }
     }
