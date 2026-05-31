@@ -34,7 +34,6 @@ impl DesktopCapturer {
         }
     }
 
-    // This must be inside the impl block to use &self
     pub fn acquire_frame(&self) -> Result<IDXGIResource> {
         unsafe {
             let mut frame_info = DXGI_OUTDUPL_FRAME_INFO::default();
@@ -43,4 +42,9 @@ impl DesktopCapturer {
             Ok(resource.expect("Failed to get frame resource"))
         }
     }
-} // <--- This brace closes the impl block
+
+    pub fn release_frame(&self) -> Result<()> {
+        unsafe { self.dupl.ReleaseFrame()?; }
+        Ok(())
+    }
+}

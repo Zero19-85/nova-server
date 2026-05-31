@@ -1,12 +1,286 @@
-   0.019433700s  INFO prepare_target{force=false package_id=nova-server v0.1.0 (C:\Users\nova-server) target="nova-server"}: cargo::core::compiler::fingerprint: stale: changed "C:\\Users\\nova-server\\src\\main.rs"
-   0.019454000s  INFO prepare_target{force=false package_id=nova-server v0.1.0 (C:\Users\nova-server) target="nova-server"}: cargo::core::compiler::fingerprint:           (vs) "C:\\Users\\nova-server\\target\\debug\\.fingerprint\\nova-server-29842bc461b55499\\dep-bin-nova-server"
-   0.019458900s  INFO prepare_target{force=false package_id=nova-server v0.1.0 (C:\Users\nova-server) target="nova-server"}: cargo::core::compiler::fingerprint:                FileTime { seconds: 13424658627, nanos: 88732300 } < FileTime { seconds: 13424658635, nanos: 183454100 }
-   0.019565500s  INFO prepare_target{force=false package_id=nova-server v0.1.0 (C:\Users\nova-server) target="nova-server"}: cargo::core::compiler::fingerprint: fingerprint dirty for nova-server v0.1.0 (C:\Users\nova-server)/Check { test: false }/TargetInner { name: "nova-server", doc: true, ..: with_path("C:\\Users\\nova-server\\src\\main.rs", Edition2021) }
-   0.019581400s  INFO prepare_target{force=false package_id=nova-server v0.1.0 (C:\Users\nova-server) target="nova-server"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleItem(ChangedFile { reference: "C:\\Users\\nova-server\\target\\debug\\.fingerprint\\nova-server-29842bc461b55499\\dep-bin-nova-server", reference_mtime: FileTime { seconds: 13424658627, nanos: 88732300 }, stale: "C:\\Users\\nova-server\\src\\main.rs", stale_mtime: FileTime { seconds: 13424658635, nanos: 183454100 } }))
-   0.022609000s  INFO prepare_target{force=false package_id=nova-server v0.1.0 (C:\Users\nova-server) target="nova-server"}: cargo::core::compiler::fingerprint: stale: changed "C:\\Users\\nova-server\\src\\main.rs"
-   0.022618400s  INFO prepare_target{force=false package_id=nova-server v0.1.0 (C:\Users\nova-server) target="nova-server"}: cargo::core::compiler::fingerprint:           (vs) "C:\\Users\\nova-server\\target\\debug\\.fingerprint\\nova-server-cea0052c9390ad75\\dep-test-bin-nova-server"
-   0.022622400s  INFO prepare_target{force=false package_id=nova-server v0.1.0 (C:\Users\nova-server) target="nova-server"}: cargo::core::compiler::fingerprint:                FileTime { seconds: 13424658627, nanos: 88732300 } < FileTime { seconds: 13424658635, nanos: 183454100 }
-   0.022690900s  INFO prepare_target{force=false package_id=nova-server v0.1.0 (C:\Users\nova-server) target="nova-server"}: cargo::core::compiler::fingerprint: fingerprint dirty for nova-server v0.1.0 (C:\Users\nova-server)/Check { test: true }/TargetInner { name: "nova-server", doc: true, ..: with_path("C:\\Users\\nova-server\\src\\main.rs", Edition2021) }
-   0.022698900s  INFO prepare_target{force=false package_id=nova-server v0.1.0 (C:\Users\nova-server) target="nova-server"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleItem(ChangedFile { reference: "C:\\Users\\nova-server\\target\\debug\\.fingerprint\\nova-server-cea0052c9390ad75\\dep-test-bin-nova-server", reference_mtime: FileTime { seconds: 13424658627, nanos: 88732300 }, stale: "C:\\Users\\nova-server\\src\\main.rs", stale_mtime: FileTime { seconds: 13424658635, nanos: 183454100 } }))
-    Checking nova-server v0.1.0 (C:\Users\nova-server)
-    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.11s
+   0.067689300s  INFO prepare_target{force=false package_id=nova-server v0.1.0 (C:\Users\nova-server) target="nova-server"}: cargo::core::compiler::fingerprint: stale: changed "C:\\Users\\nova-server\\shim/shim.cpp"
+   0.067709600s  INFO prepare_target{force=false package_id=nova-server v0.1.0 (C:\Users\nova-server) target="nova-server"}: cargo::core::compiler::fingerprint:           (vs) "C:\\Users\\nova-server\\target\\debug\\build\\nova-server-40a8e86cf9ab4ade\\output"
+   0.067714100s  INFO prepare_target{force=false package_id=nova-server v0.1.0 (C:\Users\nova-server) target="nova-server"}: cargo::core::compiler::fingerprint:                FileTime { seconds: 13424691003, nanos: 422010000 } < FileTime { seconds: 13424691102, nanos: 691244200 }
+   0.068569900s  INFO prepare_target{force=false package_id=nova-server v0.1.0 (C:\Users\nova-server) target="nova-server"}: cargo::core::compiler::fingerprint: fingerprint error for nova-server v0.1.0 (C:\Users\nova-server)/Check { test: false }/TargetInner { name: "nova-server", doc: true, ..: with_path("C:\\Users\\nova-server\\src\\main.rs", Edition2021) }
+   0.068588400s  INFO prepare_target{force=false package_id=nova-server v0.1.0 (C:\Users\nova-server) target="nova-server"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\nova-server\target\debug\.fingerprint\nova-server-5f597d2d25c4cc63\bin-nova-server`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_libgit2_prerelease
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: git_midx_writer_dump
+  17: git_filter_source_repo
+  18: git_midx_writer_dump
+  19: BaseThreadInitThunk
+  20: RtlUserThreadStart
+   0.074201100s  INFO prepare_target{force=false package_id=nova-server v0.1.0 (C:\Users\nova-server) target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint dirty for nova-server v0.1.0 (C:\Users\nova-server)/RunCustomBuild/TargetInner { ..: custom_build_target("build-script-build", "C:\\Users\\nova-server\\build.rs", Edition2021) }
+   0.074214800s  INFO prepare_target{force=false package_id=nova-server v0.1.0 (C:\Users\nova-server) target="build-script-build"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleItem(ChangedFile { reference: "C:\\Users\\nova-server\\target\\debug\\build\\nova-server-40a8e86cf9ab4ade\\output", reference_mtime: FileTime { seconds: 13424691003, nanos: 422010000 }, stale: "C:\\Users\\nova-server\\shim/shim.cpp", stale_mtime: FileTime { seconds: 13424691102, nanos: 691244200 } }))
+   0.074778500s  INFO prepare_target{force=false package_id=windows v0.59.0 target="windows"}: cargo::core::compiler::fingerprint: fingerprint error for windows v0.59.0/Check { test: false }/TargetInner { tested: false, doctest: false, ..: lib_target("windows", ["lib"], "C:\\Users\\bobby\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\windows-0.59.0\\src\\lib.rs", Edition2021) }
+   0.074794100s  INFO prepare_target{force=false package_id=windows v0.59.0 target="windows"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\nova-server\target\debug\.fingerprint\windows-7c579a20279c39e9\lib-windows`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_libgit2_prerelease
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: git_midx_writer_dump
+  18: git_filter_source_repo
+  19: git_midx_writer_dump
+  20: BaseThreadInitThunk
+  21: RtlUserThreadStart
+   0.075245500s  INFO prepare_target{force=false package_id=windows-core v0.59.0 target="windows_core"}: cargo::core::compiler::fingerprint: fingerprint error for windows-core v0.59.0/Check { test: false }/TargetInner { ..: lib_target("windows_core", ["lib"], "C:\\Users\\bobby\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\windows-core-0.59.0\\src\\lib.rs", Edition2021) }
+   0.075255700s  INFO prepare_target{force=false package_id=windows-core v0.59.0 target="windows_core"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\nova-server\target\debug\.fingerprint\windows-core-b31b597d47250c1c\lib-windows_core`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_libgit2_prerelease
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: git_midx_writer_dump
+  19: git_filter_source_repo
+  20: git_midx_writer_dump
+  21: BaseThreadInitThunk
+  22: RtlUserThreadStart
+   0.076795700s  INFO prepare_target{force=false package_id=windows-result v0.3.4 target="windows_result"}: cargo::core::compiler::fingerprint: fingerprint error for windows-result v0.3.4/Check { test: false }/TargetInner { ..: lib_target("windows_result", ["lib"], "C:\\Users\\bobby\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\windows-result-0.3.4\\src\\lib.rs", Edition2021) }
+   0.076809700s  INFO prepare_target{force=false package_id=windows-result v0.3.4 target="windows_result"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\nova-server\target\debug\.fingerprint\windows-result-33ad3d41e4f58661\lib-windows_result`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_libgit2_prerelease
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: git_midx_writer_dump
+  20: git_filter_source_repo
+  21: git_midx_writer_dump
+  22: BaseThreadInitThunk
+  23: RtlUserThreadStart
+   0.077077200s  INFO prepare_target{force=false package_id=windows-link v0.1.3 target="windows_link"}: cargo::core::compiler::fingerprint: fingerprint error for windows-link v0.1.3/Check { test: false }/TargetInner { ..: lib_target("windows_link", ["lib"], "C:\\Users\\bobby\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\windows-link-0.1.3\\src\\lib.rs", Edition2021) }
+   0.077087600s  INFO prepare_target{force=false package_id=windows-link v0.1.3 target="windows_link"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\nova-server\target\debug\.fingerprint\windows-link-8814ea65857e7b23\lib-windows_link`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_filter_source_repo
+  15: git_libgit2_prerelease
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: git_midx_writer_dump
+  21: git_filter_source_repo
+  22: git_midx_writer_dump
+  23: BaseThreadInitThunk
+  24: RtlUserThreadStart
+   0.077328000s  INFO prepare_target{force=false package_id=windows-strings v0.3.1 target="windows_strings"}: cargo::core::compiler::fingerprint: fingerprint error for windows-strings v0.3.1/Check { test: false }/TargetInner { ..: lib_target("windows_strings", ["lib"], "C:\\Users\\bobby\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\windows-strings-0.3.1\\src\\lib.rs", Edition2021) }
+   0.077337700s  INFO prepare_target{force=false package_id=windows-strings v0.3.1 target="windows_strings"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\nova-server\target\debug\.fingerprint\windows-strings-729cedd8e3d2700e\lib-windows_strings`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_libgit2_prerelease
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: git_midx_writer_dump
+  20: git_filter_source_repo
+  21: git_midx_writer_dump
+  22: BaseThreadInitThunk
+  23: RtlUserThreadStart
+   0.077567100s  INFO prepare_target{force=false package_id=windows-targets v0.53.5 target="windows_targets"}: cargo::core::compiler::fingerprint: fingerprint error for windows-targets v0.53.5/Check { test: false }/TargetInner { ..: lib_target("windows_targets", ["lib"], "C:\\Users\\bobby\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\windows-targets-0.53.5\\src\\lib.rs", Edition2021) }
+   0.077576600s  INFO prepare_target{force=false package_id=windows-targets v0.53.5 target="windows_targets"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\nova-server\target\debug\.fingerprint\windows-targets-73deaec1ce37215b\lib-windows_targets`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_libgit2_prerelease
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: git_midx_writer_dump
+  20: git_filter_source_repo
+  21: git_midx_writer_dump
+  22: BaseThreadInitThunk
+  23: RtlUserThreadStart
+   0.077804100s  INFO prepare_target{force=false package_id=windows_x86_64_msvc v0.53.1 target="windows_x86_64_msvc"}: cargo::core::compiler::fingerprint: fingerprint error for windows_x86_64_msvc v0.53.1/Check { test: false }/TargetInner { ..: lib_target("windows_x86_64_msvc", ["lib"], "C:\\Users\\bobby\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\windows_x86_64_msvc-0.53.1\\src\\lib.rs", Edition2021) }
+   0.077813600s  INFO prepare_target{force=false package_id=windows_x86_64_msvc v0.53.1 target="windows_x86_64_msvc"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\nova-server\target\debug\.fingerprint\windows_x86_64_msvc-33f608453c44d4b3\lib-windows_x86_64_msvc`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_filter_source_repo
+  15: git_libgit2_prerelease
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: git_midx_writer_dump
+  21: git_filter_source_repo
+  22: git_midx_writer_dump
+  23: BaseThreadInitThunk
+  24: RtlUserThreadStart
+   0.078450900s  INFO prepare_target{force=false package_id=nova-server v0.1.0 (C:\Users\nova-server) target="nova-server"}: cargo::core::compiler::fingerprint: fingerprint error for nova-server v0.1.0 (C:\Users\nova-server)/Check { test: true }/TargetInner { name: "nova-server", doc: true, ..: with_path("C:\\Users\\nova-server\\src\\main.rs", Edition2021) }
+   0.078461400s  INFO prepare_target{force=false package_id=nova-server v0.1.0 (C:\Users\nova-server) target="nova-server"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\nova-server\target\debug\.fingerprint\nova-server-0645b3b963d80bdd\test-bin-nova-server`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_libgit2_prerelease
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: git_midx_writer_dump
+  17: git_filter_source_repo
+  18: git_midx_writer_dump
+  19: BaseThreadInitThunk
+  20: RtlUserThreadStart
+    Checking windows-link v0.1.3
+    Checking windows_x86_64_msvc v0.53.1
+   Compiling nova-server v0.1.0 (C:\Users\nova-server)
+    Checking windows-targets v0.53.5
+    Checking windows-result v0.3.4
+    Checking windows-strings v0.3.1
+    Checking windows-core v0.59.0
+    Checking windows v0.59.0
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 2.52s

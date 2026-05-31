@@ -1,62 +1,87 @@
-# Nova Server 🚀
+# Nova + Echo
 
-An ultra-low footprint, high-performance local game-streaming host designed for the GameStream/Moonlight ecosystem, written entirely in native **Rust**.
+**Ultra-lightweight, high-performance game streaming for Moonlight.**
 
-Nova completely replaces the bloated, legacy server-side architectures of standard streaming solutions. By stripping away cross-platform abstractions, heavy background web services, and memory-heavy management runtime stacks, Nova provides a highly optimized, single-purpose Windows background engine with near-zero overhead.
+**Nova** = the host (server)  
+**Echo** = the client (companion app)
 
----
+Nova is a next-generation Sunshine replacement built for minimal resource usage, instant startup, and native features Sunshine never had — especially **Echo Mic** (real-time microphone passthrough).
 
-## 🔥 Why Nova?
+### Why Nova + Echo?
 
-Standard game-streaming hosts run heavy embedded web servers, use generic frame-pacing models that choke multi-gigabit hardware, and rely on fragile script orchestration. Nova is built from the ground up for absolute performance:
+- Single executable, zero background services
+- Extremely low VRAM & CPU footprint (lighter than Sunshine)
+- True zero-copy DXGI → NVENC pipeline
+- Works out-of-the-box on RTX 50-series (no Windows tweaks)
+- Native **Echo Mic** support — something Sunshine still can’t do cleanly
+- Moonlight-compatible (no client changes required if you just want to use Moonlight)
 
-* **Zero-Copy Pipeline:** Frames are captured straight from the GPU frame buffer via the Windows DXGI Desktop Duplication API and passed directly via VRAM pointers to hardware encoders.
-* **Microscopic Footprint:** No background runtime bloat. Written entirely in native Rust, Nova sits at **< 30MB of RAM** and **~0% idle CPU** utilization.
-* **Native CUDA/NVENC Integration:** Nova utilizes a raw CUDA context to bypass Windows display manager locks, ensuring rock-solid stability even when background NVIDIA display containers are active.
-* **Dual-Protocol Engine:** Fully compatible with legacy Moonlight clients, with an isolated parallel listener built for ultra-low-latency voice data.
+### Current Status (May 31, 2026)
 
----
+**Phase 2 Complete**  
+✅ DXGI Desktop Duplication working  
+✅ Stable NVENC session via official NVIDIA headers (C++ shim)  
+✅ Hybrid Rust + thin C++ architecture (single clean executable)  
 
-## 💎 Project Tiers & Licensing
+**Next** → Phase 3: Full encoding loop + zero-copy pipeline
 
-Nova operates on an "Open-Core" development framework. The baseline performance-centric engine is free and open-source, while complex OS display virtualization and upstream communication layers are funded via a professional licensing model.
+### Features (Planned / In Progress)
 
-| Feature Layer | Access | Capabilities Included |
-| :--- | :--- | :--- |
-| **Nova Core Engine** | **Free / OSS** | Full Rust host pipeline, raw CUDA/NVENC hardware handshake, DXGI capture, token-bucket UDP pacing. |
-| **Nova Pro Engine** | **$4.99 / $60 Lifetime** | Integrated Indirect Display Driver (IDD) virtualization, automated headless HDR, Echo Mic Passthrough. |
+- Click-and-play (no GUI bloat)
+- Config-driven (`config.toml`)
+- Native mic passthrough (Echo Mic)
+- Desktop audio loopback
+- Low-latency RTP/RTSP for Moonlight
+- Future support for Intel QuickSync + AMD AMF (same shim pattern)
+- Headless mode + optional tiny tray icon
 
----
+### Quick Start (once we hit alpha)
 
-## 🗺️ Architectural Roadmap
-
-* [x] **Phase 1: Foundation:** DXGI Desktop Duplication and Cargo framework setup.
-* [x] **Phase 2: Encoding:** Native CUDA context creation and NVENC hardware handshake.
-* [ ] **Phase 3: Pipeline:** VRAM mapping, frame buffer capture to encoder, and RTSP handshake.
-* [ ] **Phase 4: Virtualization:** UDP microphone upstream, WASAPI virtual audio, and IDD display hooks.
-* [ ] **Phase 5: Release:** Headless `config.toml` optimization and Alpha builds.
-
----
-
-## 🛠️ Developer Compilation & Usage
-
-Nova requires a modern 64-bit Windows environment.
-
-### Prerequisites
-1. **Rust Toolchain:** `stable-x86_64-pc-windows-msvc`.
-2. **Administrator Privileges:** **Required** for GPU hardware encoder access. Always run your terminal or VS Code as Administrator.
-
-### Quick Start
-```bash
-# Clone the repository
-git clone [https://github.com/Zero19-85/nova-server.git](https://github.com/Zero19-85/nova-server.git)
-cd nova-server
-
-# Build and run
+```powershell
+# After we finish Phase 3
 cargo run --release
+Or download pre-built nova.exe from Releases.
+Architecture
 
-⚠️ Disclaimers and Legal
-​NVIDIA® and NVENC®: This project uses the NVIDIA Video Codec SDK. All relevant trademarks belong to NVIDIA Corporation. This software is provided as-is and is not affiliated with, endorsed by, or sponsored by NVIDIA Corporation.
-​Hardware Access: Because Nova interacts directly with GPU hardware (NVENC/CUDA), it requires elevated (Administrator) permissions to function. Use caution when running low-level hardware interfaces.
-​No Warranty: This software is provided "as is," without warranty of any kind. The authors are not responsible for any damage to your system or hardware.
-​Built for speed. Built for performance. Built for Nova.
+Rust handles high-level orchestration, capture, config, and networking (light & safe)
+Thin C++ shim for vendor encoders (NVENC today, QuickSync/AMF tomorrow) — exactly like Sunshine does under the hood, but cleaner
+Zero-copy wherever possible (frames stay in GPU memory)
+
+This keeps Nova fast, maintainable, and truly lightweight.
+Development Roadmap
+
+Phase 1 — Foundation & DXGI capture → DONE
+Phase 2 — NVENC session via stable shim → DONE
+Phase 3 — Encoding loop + zero-copy DXGI → NVENC (next)
+Phase 4 — Audio + Echo Mic passthrough
+Phase 5 — Full Moonlight/RTSP compatibility + controller support
+Phase 6 — Intel/AMD encoder shims + headless mode
+Phase 7 — Polish, releases, donation-supported builds
+
+Building from Source
+PowerShellgit clone https://github.com/Zero19-85/nova-server.git
+cd nova-server
+cargo run
+(Requires Windows + NVIDIA GPU for now. Administrator rights needed for DXGI duplication.)
+Contributing & Donations
+This project is built for the community.
+If you want to help speed up development (or just buy the dev a coffee), donations are greatly appreciated and directly fund more time on Nova + Echo.
+Goal: A streaming host that feels native, starts instantly, uses way less resources, and finally gives you proper mic support.
+
+Nova (host) + Echo (client) — the lightweight future of GameStream.
+text---
+
+### One last thing — Continuation Tag (copy this for your next chat)
+=== NOVA + ECHO CONTINUATION (May 31, 2026) ===
+Current state:
+
+DXGI Desktop Duplication working
+C++ shim successfully opens NVENC session on RTX 5070 via D3D11 (stable)
+Hybrid Rust + thin C++ architecture locked in
+Full polished README.md created (Nova host + Echo client)
+Project vision: lightweight Sunshine replacement with native Echo Mic passthrough, single exe, minimal footprint
+
+README has been updated with current status and full roadmap.
+Please continue from here. Next priority is Phase 3: Encoding loop + zero-copy DXGI → NVENC pipeline + basic config.toml.
+User vision reminder: single-click start, out-of-the-box, lower VRAM/CPU than Sunshine, Moonlight-compatible, with native mic support. Keep offering suggestions and improvements along the way.
+Let’s start Phase 3.
